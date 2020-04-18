@@ -1,4 +1,4 @@
-const records = [
+const recordsPage = [
     {
         id: 1,
         name: 'Artur',
@@ -16,7 +16,7 @@ const records = [
     }
 ];
 
-const recordsJSON = JSON.stringify(records);
+const recordsJSON = JSON.stringify(recordsPage);
 
 localStorage.setItem('records', recordsJSON);
 
@@ -24,12 +24,7 @@ const localRecords = JSON.parse(localStorage.getItem('records'));
 
 console.log(localRecords);
 
-const app = document.getElementById('app');
-const tableOutput = recordsPage();
-
-app.append(tableOutput);
-
-function recordsPage() {
+function renderRecordsPage() {
     const table = document.createElement('table');
     const tableHead = document.createElement('thead');
     const tableBody = document.createElement('tbody');
@@ -46,7 +41,7 @@ function recordsPage() {
     tableHead.appendChild(thName);
     tableHead.appendChild(thRecord);
 
-    records.forEach((record, index) => {
+    recordsPage.forEach((record, index) => {
         const row = document.createElement('tr');
         const cellNumber = document.createElement('td');
         const cellName = document.createElement('td');

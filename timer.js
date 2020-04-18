@@ -1,7 +1,7 @@
 window.onload = () => {
     startStop();
-  }
-  
+  };
+
   //объявляем переменные
   var base = 60;
   var clocktimer, dateObj, dh, dm, ds, ms;
@@ -13,7 +13,7 @@ window.onload = () => {
     ts = 0,
     ms = 0,
     init = 0;
-  
+
   //функция для очистки поля
   function clearСlock() {
     clearTimeout(clocktimer);
@@ -27,7 +27,7 @@ window.onload = () => {
     readout = '00:00:00';
     document.MyForm.stopwatch.value = readout;
   }
-  
+
   //функция для старта секундомера
   function StartTIME() {
     var cdateObj = new Date();
@@ -91,7 +91,7 @@ window.onload = () => {
     document.MyForm.stopwatch.value = readout;
     clocktimer = setTimeout("StartTIME()", 1);
   }
-  
+
   //Функция запуска и остановки
   function startStop() {
     if (init == 0) {
