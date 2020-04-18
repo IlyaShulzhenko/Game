@@ -141,6 +141,8 @@ function startGame() {
 
 
     function Start() {
+        thisDate = new Date();
+        startTime();
         if (!player.dead) {
             timer = setInterval(Update, UPDATE_TIME); //обновление игры раз в 60 сек
         }
@@ -148,7 +150,25 @@ function startGame() {
     }
 
     function stopGame() {
-        clearInterval(timer); //остановка игры
+        const result = endTime();
+        const user =  JSON.parse(localStorage.getItem('user'));
+        let records = JSON.parse(localStorage.getItem('records'));
+        const resultRecord = {
+            userName: user.name,
+            timeSting: result.timeSting,
+            result: result.time
+        };
+
+        if (!records) {
+            records = [];
+        }
+
+        records.push(resultRecord);
+        console.log(user, result, records);
+
+        localStorage.setItem('records', JSON.stringify(records));
+
+        clearInterval(timer);
         timer = null;
     }
 

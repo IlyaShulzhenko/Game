@@ -23,7 +23,6 @@ function timeToStr(t) {
 function startTime() {
     startDate = new Date();
     timeDiff = startDate.getTime() - thisDate.getTime();
-    document.clockform.clock.value = timeToStr(timeDiff);
     clockTimer = setTimeout(() => { startTime(); }, 10);
 }
 
@@ -36,8 +35,3 @@ function endTime() {
         timeSting: timeSting
     };
 }
-
-const handleStartClick = () => {
-    thisDate = new Date();
-    startTime();
-};
