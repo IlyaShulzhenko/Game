@@ -1,114 +1,43 @@
-window.onload = () => {
-    startStop();
-  };
+let startDate, thisDate, timeDiff;
+let clockTimer;
 
-  //объявляем переменные
-  var base = 60;
-  var clocktimer, dateObj, dh, dm, ds, ms;
-  var readout = '';
-  var h = 1,
-    m = 1,
-    tm = 1,
-    s = 0,
-    ts = 0,
-    ms = 0,
-    init = 0;
+function timeToStr(t) {
+    let ms = t % 1000;
+    t -= ms;
+    ms = Math.floor(ms / 10);
+    t = Math.floor(t / 1000);
+    let s = t % 60;
+    t -= s;
+    t = Math.floor(t / 60);
+    let m = t % 60;
+    t -= m;
+    t = Math.floor(t / 60);
+    let h = t % 60;
+    if (h < 10) h = '0' + h;
+    if (m < 10) m = '0' + m;
+    if (s < 10) s = '0' + s;
+    if (ms < 10) ms = '0' + ms;
+    return h + ':' + m + ':' + s + '.' + ms;
+}
 
-  //функция для очистки поля
-  function clearСlock() {
-    clearTimeout(clocktimer);
-    h = 1;
-    m = 1;
-    tm = 1;
-    s = 0;
-    ts = 0;
-    ms = 0;
-    init = 0;
-    readout = '00:00:00';
-    document.MyForm.stopwatch.value = readout;
-  }
+function startTime() {
+    startDate = new Date();
+    timeDiff = startDate.getTime() - thisDate.getTime();
+    document.clockform.clock.value = timeToStr(timeDiff);
+    clockTimer = setTimeout(() => { startTime(); }, 10);
+}
 
-  //функция для старта секундомера
-  function StartTIME() {
-    var cdateObj = new Date();
-    var t = (cdateObj.getTime() - dateObj.getTime()) - (s * 1000);
-    if (t > 999) {
-      s++;
-    }
-    if (s >= (m * base)) {
-      ts = 0;
-      m++;
-    } else {
-      ts = parseInt((ms / 100) + s);
-      if (ts >= base) {
-        ts = ts - ((m - 1) * base);
-      }
-    }
-    if (m > (h * base)) {
-      tm = 1;
-      h++;
-    } else {
-      tm = parseInt((ms / 100) + m);
-      if (tm >= base) {
-        tm = tm - ((h - 1) * base);
-      }
-    }
-    ms = Math.round(t / 10);
-    if (ms > 99) {
-      ms = 0;
-    }
-    if (ms == 0) {
-      ms = '00';
-    }
-    if (ms > 0 && ms <= 9) {
-      ms = '0' + ms;
-    }
-    if (ts > 0) {
-      ds = ts;
-      if (ts < 10) {
-        ds = '0' + ts;
-      }
-    } else {
-      ds = '00';
-    }
-    dm = tm - 1;
-    if (dm > 0) {
-      if (dm < 10) {
-        dm = '0' + dm;
-      }
-    } else {
-      dm = '00';
-    }
-    dh = h - 1;
-    if (dh > 0) {
-      if (dh < 10) {
-        dh = '0' + dh;
-      }
-    } else {
-      dh = '00';
-    }
-    readout = dh + ':' + dm + ':' + ds;
-    document.MyForm.stopwatch.value = readout;
-    clocktimer = setTimeout("StartTIME()", 1);
-  }
+function endTime() {
+    const timeSting = timeToStr(timeDiff);
+    clearInterval(clockTimer);
 
-  //Функция запуска и остановки
-  function startStop() {
-    if (init == 0) {
-      clearСlock();
-      dateObj = new Date();
-      startTIME();
-      init = 1;
-    } else {
-      clearTimeout(clocktimer);
-      init = 0;
-    }
-  }
-  if (game){
-      startStop()
-  }
-  if(collide){
-      startStop()
-  }
-  setItem(name, time)
-  getItem(name)
+    return {
+        time: timeDiff,
+        timeSting: timeSting
+    };
+}
+
+const handleStartClick = () => {
+    thisDate = new Date();
+    startTime();
+};

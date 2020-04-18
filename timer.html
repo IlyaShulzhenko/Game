@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form name="clockform">
+    <p>Время:
+        <input name="clock" size="12" maxlength="12" value="00:00:00.00">
+        <input name="starter" type="button" value="Старт" onclick="handleStartClick()">
+        <input name="starter" type="button" value="Конец" onclick="endTime()">
+
+    </p>
+    <p id="markerSum"></p>
+    <p id="marker"></p>
+</form>
+<script src="timer.js"></script>
+</body>
+</html>
