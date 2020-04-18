@@ -3,21 +3,24 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>регистрация</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.0/css/bootstrap.min.css" integrity="sha256-/ykJw/wDxMa0AQhHDYfuMEwVb4JHMx9h4jD4XvHqVzU=" crossorigin="anonymous" />
+
     <link rel="stylesheet" rev="stylesheet" type="text/css" href="styles.css"  />
 </head>
 <body>
-<div id="container">
-    <form class="mainform" id="form">
-        <p class="name">
-            <label for="name">Имя</label>
-            <input required type="text" id="name" name="name" placeholder = "Введите ваше имя" />
-        </p>
-        <p>
-          <button type="submit" id="send" class="send">Войти</button>
-
-        </p>
-    </form>
+<div class="container">
+    <div class="row col-12 d-flex justify-content-center ">
+        <form id="form" class="align-items-center">
+            <div class="form-group">
+                <label for="name">Name</label>
+                <input required type="text" class="form-control" id="name">
+                <br>
+                <button type="submit" class="btn btn-primary">Войти</button>
+            </div>
+        </form>
+    </div>
 </div>
-<script src="registr.js"></script>
+
+<script src="loginPage.js"></script>
 </body>
 </html>
