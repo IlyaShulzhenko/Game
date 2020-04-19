@@ -243,7 +243,7 @@
 
     function Start(){
       if(!player.dead){
-        timer = setInterval(Update, UPDATE_TIME); //обновление игры раз в 60 сек
+        timer = setInterval(Update, UPDATE_TIME); //обновление игры 
       }
 
     }
