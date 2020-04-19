@@ -15,24 +15,31 @@ function switchToStateFromURLHash() {
         SPAState = { pageName: 'Login' };
     }
 
+    const user = localStorage.getItem('user');
     const pageName = SPAState.pageName;
 
     const app = document.getElementById('root');
     let pageHTML = "";
     let component;
-    switch (SPAState.pageName) {
-        case 'Login':
-            component = renderLoginPage();
-            break;
-        case 'Main':
-            component = renderMainPage();
-            break;
-        case 'Record':
-            component = renderRecordsPage();
-            break;
-        case 'Game':
-            pageHTML += '<div class="wrapper"><canvas class="canvas" id="canvas"></canvas></div>';
-            break;
+
+    if (user) {
+        switch (SPAState.pageName) {
+            case 'Login':
+                component = renderLoginPage();
+                break;
+            case 'Main':
+                component = renderMainPage();
+                break;
+            case 'Record':
+                component = renderRecordsPage();
+                break;
+            case 'Game':
+                pageHTML += '<div class="wrapper"><canvas class="canvas" id="canvas"></canvas></div>';
+                break;
+        }
+    } else {
+        switchToState({pageName: 'Login'});
+        component = renderLoginPage();
     }
 
     while (app.firstChild) {
@@ -48,9 +55,7 @@ function switchToStateFromURLHash() {
 
     if (pageName === 'Game') {
         startGame();
-    } else {
     }
-
 }
 
 function switchToState(newState) {

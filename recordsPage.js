@@ -1,30 +1,7 @@
-const recordsPage = [
-    {
-        id: 1,
-        name: 'Artur',
-        record: 10
-    },
-    {
-        id: 2,
-        name: 'Boris',
-        record: 12
-    },
-    {
-        id: 3,
-        name: 'Artem',
-        record: 29
-    }
-];
-
-const recordsJSON = JSON.stringify(recordsPage);
-
-localStorage.setItem('records', recordsJSON);
-
-const localRecords = JSON.parse(localStorage.getItem('records'));
-
-console.log(localRecords);
+const records = JSON.parse(localStorage.getItem('records'));
 
 function renderRecordsPage() {
+    const notRecords = document.createElement('div');
     const table = document.createElement('table');
     const tableHead = document.createElement('thead');
     const tableBody = document.createElement('tbody');
@@ -40,26 +17,48 @@ function renderRecordsPage() {
     tableHead.appendChild(thNumber);
     tableHead.appendChild(thName);
     tableHead.appendChild(thRecord);
+    if (records) {
+        const mapped = records.map(function(record, i) {
+            return { index: i, value: record.result };
+        });
 
-    recordsPage.forEach((record, index) => {
-        const row = document.createElement('tr');
-        const cellNumber = document.createElement('td');
-        const cellName = document.createElement('td');
-        const cellRecord = document.createElement('td');
+        mapped.sort(function(a, b) {
+            if (a.value < b.value) {
+                return 1; }
+            if (a.value > b.value) {
+                return -1; }
+            return 0;
+        });
 
-        cellNumber.innerText = index + 1;
-        cellName.innerText = record.name;
-        cellRecord.innerText = record.record;
+        const sortedResults = mapped.map(function(el) {
+            return records[el.index];
+        });
 
-        row.appendChild(cellNumber);
-        row.appendChild(cellName);
-        row.appendChild(cellRecord);
+        sortedResults.forEach((record, index) => {
+            const row = document.createElement('tr');
+            const cellNumber = document.createElement('td');
+            const cellName = document.createElement('td');
+            const cellRecord = document.createElement('td');
 
-        tableBody.appendChild(row);
-    });
+            cellNumber.innerText = index + 1;
+            cellName.innerText = record.userName;
+            cellRecord.innerText = record.timeSting;
 
-    table.appendChild(tableHead);
-    table.appendChild(tableBody);
+            row.appendChild(cellNumber);
+            row.appendChild(cellName);
+            row.appendChild(cellRecord);
+
+            tableBody.appendChild(row);
+        });
+
+        table.appendChild(tableHead);
+        table.appendChild(tableBody);
+    } else {
+        notRecords.innerText = 'еще нет рекордов';
+
+        return notRecords
+    }
+
 
     return table;
 }
